@@ -1,7 +1,7 @@
 ---
 azure_pipelines_agent_ctl_auth_flags:''# '--auth {{ azure_pipelines_agent_ctl_auth_mode }}{% if azure_pipelines_agent_ctl_auth_mode == 'pat'  } --token {{ azure_pipelines_agent_ctl_pat }}{% else } --userName {{ azure_pipelines_agent_ctl_username }} --password {{ azure_pipelines_agent_ctl_password }}{% endif %}'
-azure_pipelines_agent_ctl_base_config_cmd:''#'{{ azure_pipelines_agent_ctl_configuration_script }} --unattended --url {{ azure_pipelines_agent_ctl_devops_url }}'
-azure_pipelines_agent_ctl_register_agent_cmd:'{{ azure_pipelines_agent_ctl_base_config_cmd }} {{ azure_pipelines_agent_ctl_auth_flags }} --pool {{ azure_pipelines_agent_ctl_agent_pool }} --agent {{ azure_pipelines_agent_ctl_agent_name }} --work {{ azure_pipelines_agent_ctl_agent_workdir }} --acceptTeeEula'
+azure_pipelines_agent_ctl_base_config_cmd:''# '{{ azure_pipelines_agent_ctl_configuration_script }} --unattended --url {{ azure_pipelines_agent_ctl_devops_url }}'
+azure_pipelines_agent_ctl_register_agent_cmd:''# '{{ azure_pipelines_agent_ctl_base_config_cmd }} {{ azure_pipelines_agent_ctl_auth_flags }} --pool {{ azure_pipelines_agent_ctl_agent_pool }} --agent {{ azure_pipelines_agent_ctl_agent_name }} --work {{ azure_pipelines_agent_ctl_agent_workdir }} --acceptTeeEula'
 azure_pipelines_agent_ctl_remove_agent_cmd:'{{ azure_pipelines_agent_ctl_base_config_cmd }} remove {{ azure_pipelines_agent_ctl_auth_flags }}' 
 # vars file for azure_pipelines_agent-ctl
 # azure_pipelines_agent_ctl_proxy_auth_env_vector:'{% if azure_pipelines_agent_ctl_proxy['username'] is defined or azure_pipelines_agent_ctl_proxy['password'] is defined %}VSTS_HTTP_PROXY_USERNAME={{ azure_pipelines_agent_ctl_proxy['username'] }} VSTS_HTTP_PROXY_PASSWORD={{ azure_pipelines_agent_ctl_proxy['password'] }}{% endif %}'
