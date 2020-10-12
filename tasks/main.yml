@@ -8,7 +8,7 @@
 #     - install
 
 - name: install dependencies
-  when: {{ azure_pipelines_agent_ctl_install_dependencies }}
+  when: azure_pipelines_agent_ctl_install_dependencies
   # shell:
   #   chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
   #   cmd: '{{ azure_pipelines_agent_ctl_dependency_install_script }}'
