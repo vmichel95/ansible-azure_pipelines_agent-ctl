@@ -1,9 +1,9 @@
 ---
 # defaults file for azure_pipelines_agent-ctl
-azure_pipelines_agent_ctl_allow_root: true
+azure_pipelines_agent_ctl_allow_root: True
 azure_pipelines_agent_ctl_install_dir: /usr/local/vsts-agent
 
-azure_pipelines_agent_ctl_install_dependencies: true
+azure_pipelines_agent_ctl_install_dependencies: True
 azure_pipelines_agent_ctl_dependency_install_script: './bin/installdependencies.sh'
 
 azure_pipelines_agent_ctl_configuration_script: './config.sh'
