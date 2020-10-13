@@ -14,7 +14,7 @@
   #   cmd: '{{ azure_pipelines_agent_ctl_dependency_install_script }}'
   #   executable: /bin/bash
   debug:
-    msg: '{{ azure_pipelines_agent_ctl_command_env_vector }}'
+    msg: "{{ azure_pipelines_agent_ctl_command_env_vector | join(' ') }}"
   tags:
     - install
   
