@@ -23,6 +23,7 @@ azure_pipelines_agent_ctl_auth_mode: pat
 # azure_pipelines_agent_ctl_agent_pool: ${ agent-pool-id }
 # azure_pipelines_agent_ctl_agent_name: ${ agent-name }
 azure_pipelines_agent_ctl_agent_workdir: '_work'
+azure_pipelines_agent_ctl_accept_team_explorer_everywhere_license: True
 
 # azure_pipelines_agent_ctl_proxy:
 #   url:
