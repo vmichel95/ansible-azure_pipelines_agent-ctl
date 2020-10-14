@@ -18,7 +18,7 @@
   tags: register
 
 - name: initialize {{ azure_pipelines_agent_ctl_init_service_type }} service
-  include_tasks: '{{ azure_pipelines_agent_ctl_init_service_type }}.yml'
+  import_tasks: '{{ azure_pipelines_agent_ctl_init_service_type }}.yml'
   tags: init
 
 - name: remove agent

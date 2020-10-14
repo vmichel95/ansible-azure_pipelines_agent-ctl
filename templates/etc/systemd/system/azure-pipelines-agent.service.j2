@@ -1,0 +1,8 @@
+[Unit]
+After=network.target
+
+[Service]
+{%- for entry in azure_pipelines_agent_ctl_command_env_vector.items() %}
+  Environment={{ entry }}
+{%- endfor %}
+ExecStart={{ azure_pipelines_agent_ctl_run_script }}

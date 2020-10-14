@@ -31,6 +31,7 @@ azure_pipelines_agent_ctl_accept_team_explorer_everywhere_license: True
 #   password:
 
 azure_pipelines_agent_ctl_run_script: './run.sh'
+azure_pipelines_agent_ctl_env_script: './env.sh'
 azure_pipelines_agent_ctl_service_user: root 
 azure_pipelines_agent_ctl_service_script: './svc.sh'
 azure_pipelines_agent_ctl_init_service_type: msft-systemd-shell # systemd

@@ -1,11 +1,21 @@
 ---
-- name: install systemd service
+# - name: configure environment
+#   shell:
+#     chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
+#     cmd: '{{ azure_pipelines_agent_ctl_env_script }}'
+#     executable: /bin/bash
+
+- name: initialize systemd service
+  become: yes
+  become_user: '{{ azure_pipelines_agent_ctl_service_user }}'
   shell:
     chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
     cmd: '{{ azure_pipelines_agent_ctl_svc_install_cmd }}'
     executable: /bin/bash
 
 - name: start systemd service
+  become: yes
+  become_user: '{{ azure_pipelines_agent_ctl_service_user }}'
   shell:
     chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
     cmd: '{{ azure_pipelines_agent_ctl_svc_start_cmd }}'
