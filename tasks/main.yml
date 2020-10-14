@@ -5,8 +5,7 @@
     name: andrewrothstein.azure_pipelines_agent
   vars:
     azure_pipelines_agent_link_dir: '{{ azure_pipelines_agent_ctl_install_dir }}'
-  tags:
-    - install
+  tags: install
 
 - name: install dependencies
   when: azure_pipelines_agent_ctl_install_dependencies
@@ -14,8 +13,7 @@
     chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
     cmd: '{{ azure_pipelines_agent_ctl_dependency_install_script }}'
     executable: /bin/bash
-  tags:
-    - install
+  tags: install
   
 - name: register agent
   # shell:
@@ -24,8 +22,7 @@
   #   executable: /bin/bash
   debug:
     msg: '{{ azure_pipelines_agent_ctl_register_agent_cmd }}'
-  tags:
-    - register
+  tags: register
 
 # - name: initialize {{ azure_pipelines_agent_ctl_init_service_type }} service
 #   include_tasks: '{{ azure_pipelines_agent_ctl_init_service_type }}.yml'
@@ -39,5 +36,4 @@
   #   executable: /bin/bash
   debug:
     msg: '{{ azure_pipelines_agent_ctl_remove_agent_cmd }}'
-  tags:
-    - remove
+  tags: remove
