@@ -1,10 +1,12 @@
 ---
 - name: install systemd service
-  shell: '{{ azure_pipelines_agent_ctl_install_dir }}'
-  cmd: '{{ azure_pipelines_agent_ctl_svc_install_cmd }}'
-  executable: /bin/bash
+  shell:
+    chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
+    cmd: '{{ azure_pipelines_agent_ctl_svc_install_cmd }}'
+    executable: /bin/bash
 
 - name: start systemd service
-  shell: '{{ azure_pipelines_agent_ctl_install_dir }}'
-  cmd: '{{ azure_pipelines_agent_ctl_svc_start_cmd }}'
-  executable: /bin/bash
+  shell:
+    chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
+    cmd: '{{ azure_pipelines_agent_ctl_svc_start_cmd }}'
+    executable: /bin/bash
