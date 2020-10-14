@@ -31,5 +31,5 @@ galaxy_info:
       - stretch
   role_name: azure_pipelines_agent-ctl
 dependencies: []
-# - role: andrewrothstein.unarchive-deps
-#   version: v1.1.5
+# - role: andrewrothstein.bash
+#   version: v1.1.6
