@@ -16,7 +16,7 @@ azure_pipelines_agent_ctl_proxy_password_env: >-
   {% if azure_pipelines_agent_ctl_proxy['password'] is defined %}
   VSTS_HTTP_PROXY_PASSWORD={{ azure_pipelines_agent_ctl_proxy['password'] }}
   {% endif %}
-azure_pipelines_agent_ctl_command_proxy_env_vector: '{{ [azure_pipelines_agent_ctl_proxy_url_env, azure_pipelines_agent_ctl_proxy_username_env, azure_pipelines_agent_ctl_proxy_password_env] | list }}'
+azure_pipelines_agent_ctl_command_proxy_env_vector: '{{ [azure_pipelines_agent_ctl_proxy_url_env, azure_pipelines_agent_ctl_proxy_username_env, azure_pipelines_agent_ctl_proxy_password_env] }}'
 azure_pipelines_agent_ctl_command_env_vector: '{{ [azure_pipelines_agent_ctl_runas_root_env] + azure_pipelines_agent_ctl_command_proxy_env_vector | select("defined") | list }}'
 
 azure_pipelines_agent_ctl_base_flags: >-
@@ -38,11 +38,16 @@ azure_pipelines_agent_ctl_devops_pipelines_flags: >-
   {% endif %}
 
 azure_pipelines_agent_ctl_register_agent_cmd: >-
+  {{ azure_pipelines_agent_ctl_command_env_vector | join(' ') }}
   {{ azure_pipelines_agent_ctl_configuration_script }}
   {{ azure_pipelines_agent_ctl_base_flags }}
   {{ azure_pipelines_agent_ctl_auth_flags}}
   {{ azure_pipelines_agent_ctl_devops_pipelines_flags }}
 azure_pipelines_agent_ctl_remove_agent_cmd: >-
+  {{ azure_pipelines_agent_ctl_command_env_vector | join(' ') }}
   {{ azure_pipelines_agent_ctl_configuration_script }} remove
   {{ azure_pipelines_agent_ctl_base_flags }}
   {{ azure_pipelines_agent_ctl_auth_flags}}
+
+azure_pipelines_agent_ctl_svc_install_cmd: "{% if 'root' == azure_pipelines_agent_ctl_service_user %}sudo {% endif %}{{ azure_pipelines_agent_ctl_service_script }} install"
+azure_pipelines_agent_ctl_svc_start_cmd: "{% if 'root' == azure_pipelines_agent_ctl_service_user %}sudo {% endif %}{{ azure_pipelines_agent_ctl_service_script }} start"

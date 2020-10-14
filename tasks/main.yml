@@ -1,20 +1,18 @@
 ---
 # tasks file for azure_pipelines_agent-ctl
-# - name: install agent
-#   import_role: andrewrothstein.azure_pipelines_agent
-#   vars:
-#     azure_pipelines_agent_link_dir: '{{ azure_pipelines_agent_ctl_install_dir }}'
-#   tags:
-#     - install
+- name: install agent
+  import_role: andrewrothstein.azure_pipelines_agent
+  vars:
+    azure_pipelines_agent_link_dir: '{{ azure_pipelines_agent_ctl_install_dir }}'
+  tags:
+    - install
 
 - name: install dependencies
   when: azure_pipelines_agent_ctl_install_dependencies
-  # shell:
-  #   chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
-  #   cmd: '{{ azure_pipelines_agent_ctl_dependency_install_script }}'
-  #   executable: /bin/bash
-  debug:
-    msg: '{{ azure_pipelines_agent_ctl_command_env_vector | join(" ") }}'
+  shell:
+    chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
+    cmd: '{{ azure_pipelines_agent_ctl_dependency_install_script }}'
+    executable: /bin/bash
   tags:
     - install
   
@@ -28,10 +26,10 @@
   tags:
     - register
 
-- name: initialize {{ azure_pipelines_agent_ctl_init_service_type }} service
-  include_tasks: '{{ azure_pipelines_agent_ctl_init_service_type }}.yml'
-  tags:
-    - init
+# - name: initialize {{ azure_pipelines_agent_ctl_init_service_type }} service
+#   include_tasks: '{{ azure_pipelines_agent_ctl_init_service_type }}.yml'
+#   tags:
+#     - init
 
 - name: remove agent
   # shell: 
