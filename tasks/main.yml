@@ -1,7 +1,7 @@
 ---
 # tasks file for azure_pipelines_agent-ctl
 - name: install agent
-  import_role:
+  include_role:
     name: andrewrothstein.azure_pipelines_agent
   vars:
     azure_pipelines_agent_link_dir: '{{ azure_pipelines_agent_ctl_install_dir }}'
