@@ -2,4 +2,4 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - azure_pipelines_agent-ctl
+    - ansible-azure_pipelines_agent-ctl

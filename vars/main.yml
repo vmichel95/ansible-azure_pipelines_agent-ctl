@@ -1,23 +1,11 @@
 ---
 # vars file for azure_pipelines_agent-ctl
-azure_pipelines_agent_ctl_runas_root_env: >-
-  {% if azure_pipelines_agent_ctl_allow_root %}
-  AGENT_ALLOW_RUNASROOT={{ azure_pipelines_agent_ctl_allow_root | bool | int }}
-  {% endif %}
-azure_pipelines_agent_ctl_proxy_url_env: >-
-  {% if azure_pipelines_agent_ctl_proxy['url'] is defined %}
-  VSTS_HTTP_PROXY={{ azure_pipelines_agent_ctl_proxy['url'] }}
-  {% endif %}
-azure_pipelines_agent_ctl_proxy_username_env: >-
-  {% if azure_pipelines_agent_ctl_proxy['username'] is defined %}
-  VSTS_HTTP_PROXY_USERNAME={{ azure_pipelines_agent_ctl_proxy['username'] }}
-  {% endif %}
-azure_pipelines_agent_ctl_proxy_password_env: >-
-  {% if azure_pipelines_agent_ctl_proxy['password'] is defined %}
-  VSTS_HTTP_PROXY_PASSWORD={{ azure_pipelines_agent_ctl_proxy['password'] }}
-  {% endif %}
-azure_pipelines_agent_ctl_command_proxy_env_vector: '{{ [azure_pipelines_agent_ctl_proxy_url_env, azure_pipelines_agent_ctl_proxy_username_env, azure_pipelines_agent_ctl_proxy_password_env] }}'
-azure_pipelines_agent_ctl_command_env_vector: '{{ [azure_pipelines_agent_ctl_runas_root_env] + azure_pipelines_agent_ctl_command_proxy_env_vector | select("defined") | list }}'
+azure_pipelines_agent_ctl_runas_root_env: '{{ ["AGENT_ALLOW_RUNASROOT", (azure_pipelines_agent_ctl_allow_root and "root" == azure_pipelines_agent_ctl_service_user) | bool | int] }}'
+azure_pipelines_agent_ctl_proxy_url_env: '{{ ["VSTS_HTTP_PROXY", azure_pipelines_agent_ctl_proxy["url"]]}}'
+azure_pipelines_agent_ctl_proxy_username_env: '{{ ["VSTS_HTTP_PROXY_USERNAME", azure_pipelines_agent_ctl_proxy["username"] | default("")] }}'
+azure_pipelines_agent_ctl_proxy_password_env: '{{ ["VSTS_HTTP_PROXY_PASSWORD", azure_pipelines_agent_ctl_proxy["password"] | default("")] }}'
+azure_pipelines_agent_ctl_proxy_env_vector: '{{ [azure_pipelines_agent_ctl_proxy_url_env, azure_pipelines_agent_ctl_proxy_username_env, azure_pipelines_agent_ctl_proxy_password_env] }}'
+azure_pipelines_agent_ctl_shell_env: '{{ dict([azure_pipelines_agent_ctl_runas_root_env] + azure_pipelines_agent_ctl_proxy_env_vector) | dict2items | rejectattr("value", "equalto", "") | list | items2dict }}'
 
 azure_pipelines_agent_ctl_base_flags: >-
   --url {{ azure_pipelines_agent_ctl_devops_url }}
@@ -38,16 +26,15 @@ azure_pipelines_agent_ctl_devops_pipelines_flags: >-
   {% endif %}
 
 azure_pipelines_agent_ctl_register_agent_cmd: >-
-  {{ azure_pipelines_agent_ctl_command_env_vector | join(' ') }}
   {{ azure_pipelines_agent_ctl_configuration_script }}
   {{ azure_pipelines_agent_ctl_base_flags }}
   {{ azure_pipelines_agent_ctl_auth_flags}}
   {{ azure_pipelines_agent_ctl_devops_pipelines_flags }}
 azure_pipelines_agent_ctl_remove_agent_cmd: >-
-  {{ azure_pipelines_agent_ctl_command_env_vector | join(' ') }}
   {{ azure_pipelines_agent_ctl_configuration_script }} remove
   {{ azure_pipelines_agent_ctl_base_flags }}
   {{ azure_pipelines_agent_ctl_auth_flags}}
 
 azure_pipelines_agent_ctl_svc_install_cmd: '{{ azure_pipelines_agent_ctl_service_script }} install'
 azure_pipelines_agent_ctl_svc_start_cmd: '{{ azure_pipelines_agent_ctl_service_script }} start'
+azure_pipelines_agent_ctl_svc_stop_cmd: '{{ azure_pipelines_agent_ctl_service_script }} stop'
