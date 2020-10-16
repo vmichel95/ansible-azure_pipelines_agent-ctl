@@ -1,0 +1,30 @@
+---
+galaxy_info:
+  author: Victor Michel
+  description: Utility operations for managing Azure Pipelines Agent
+  company: BlackRock Financial Management
+  license: 
+    - MIT
+  min_ansible_version: 2.0
+  galaxy_tags: 
+    - development
+  # MSFT Shell Driven SystemD Configuration: https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/v2-linux?view=azure-devops#run-as-a-systemd-service
+  platforms:
+  - name: EL
+    versions:
+      - 7
+  - name: Ubuntu
+    versions:
+      - xenial
+      - yakkety
+      - zesty
+      - artful
+      - bionic
+      - cosmic
+      - disco
+      - eoan
+  role_name: azure_pipelines_agent-ctl
+dependencies:
+  - role: andrewrothstein.bash
+    version: v1.1.6
+    tags: install-deps
