@@ -8,27 +8,21 @@ galaxy_info:
   min_ansible_version: 2.0
   galaxy_tags: 
     - development
+  # MSFT Shell Driven SystemD Configuration: https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/v2-linux?view=azure-devops#run-as-a-systemd-service
   platforms:
   - name: EL
     versions:
-      - all
-  - name: Fedora
-    versions:
-      - all
+      - 7
   - name: Ubuntu
     versions:
-      - all
-  - name: Alpine
-    versions:
-      - all
-  - name: Archlinux
-    versions:
-      - all
-  - name: Debian
-    versions:
-      - buster
-      - jessie
-      - stretch
+      - xenial
+      - yakkety
+      - zesty
+      - artful
+      - bionic
+      - cosmic
+      - disco
+      - eoan
   role_name: azure_pipelines_agent-ctl
 dependencies:
   - role: andrewrothstein.bash
