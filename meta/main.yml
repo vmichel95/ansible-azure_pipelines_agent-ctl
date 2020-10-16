@@ -33,3 +33,4 @@ galaxy_info:
 dependencies:
   - role: andrewrothstein.bash
     version: v1.1.6
+    tags: install-deps

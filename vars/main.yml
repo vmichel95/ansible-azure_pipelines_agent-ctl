@@ -38,3 +38,4 @@ azure_pipelines_agent_ctl_remove_agent_cmd: >-
 azure_pipelines_agent_ctl_svc_install_cmd: '{{ azure_pipelines_agent_ctl_service_script }} install'
 azure_pipelines_agent_ctl_svc_start_cmd: '{{ azure_pipelines_agent_ctl_service_script }} start'
 azure_pipelines_agent_ctl_svc_stop_cmd: '{{ azure_pipelines_agent_ctl_service_script }} stop'
+azure_pipelines_agent_ctl_svc_uninstall_cmd: '{{ azure_pipelines_agent_ctl_service_script }} uninstall'

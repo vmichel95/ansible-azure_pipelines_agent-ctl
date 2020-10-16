@@ -5,8 +5,10 @@ azure_pipelines_agent_ctl_install_dir: /usr/local/vsts-agent
 
 azure_pipelines_agent_ctl_install_dependencies: True
 azure_pipelines_agent_ctl_dependency_install_script: './bin/installdependencies.sh'
-
 azure_pipelines_agent_ctl_configuration_script: './config.sh'
+azure_pipelines_agent_ctl_env_script: './env.sh'
+azure_pipelines_agent_ctl_run_script: './run.sh'
+azure_pipelines_agent_ctl_service_script: './svc.sh'
 
 # Authentication type, valid values:
 #  * pat - Personal Access Token
@@ -30,8 +32,5 @@ azure_pipelines_agent_ctl_accept_team_explorer_everywhere_license: True
 #   username:
 #   password:
 
-azure_pipelines_agent_ctl_run_script: './run.sh'
-azure_pipelines_agent_ctl_env_script: './env.sh'
 azure_pipelines_agent_ctl_service_user: root 
-azure_pipelines_agent_ctl_service_script: './svc.sh'
 azure_pipelines_agent_ctl_init_service_type: msft-sh-systemd
