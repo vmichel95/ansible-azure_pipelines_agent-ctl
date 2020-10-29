@@ -7,6 +7,30 @@
     cmd: '{{ azure_pipelines_agent_ctl_dependency_install_script }}'
   tags: install-deps
 
+- name: configure web proxy
+  when: azure_pipelines_agent_ctl_proxy["url"] is defined
+  block:
+    - name: write {{ azure_pipelines_agent_ctl_install_dir }}/.proxy
+      template:
+        src: .proxy.j2
+        dest: '{{ azure_pipelines_agent_ctl_install_dir }}/.proxy'
+        mode: 0644
+    - name: write {{ azure_pipelines_agent_ctl_install_dir }}/.proxybypass
+      when: azure_pipelines_agent_ctl_proxy["bypass"] is defined
+      template:
+        src: .proxybypass.j2
+        dest: '{{ azure_pipelines_agent_ctl_install_dir }}/.proxybypass'
+        mode: 0644
+  tags: configure
+
+- name: write {{ azure_pipelines_agent_ctl_install_dir }}/.env
+  when: azure_pipelines_agent_ctl_agent_env is defined
+  template:
+    src: .env.j2
+    dest: '{{ azure_pipelines_agent_ctl_install_dir }}/.env'
+    mode: 0644
+  tags: configure
+
 - name: register agent
   command:
     chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
