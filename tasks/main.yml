@@ -34,10 +34,6 @@
       {%- for k, v in azure_pipelines_agent_ctl_job_base_env.items() -%}
       {{ k }}={{ v }}
       {% endfor -%}
-  # template:
-  #   src: .env.j2
-  #   dest: '{{ azure_pipelines_agent_ctl_install_dir }}/.env'
-  #   mode: 0644
   tags: configure
 
 - name: register agent
