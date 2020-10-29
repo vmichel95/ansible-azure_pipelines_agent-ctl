@@ -24,7 +24,7 @@
   tags: configure
 
 - name: write {{ azure_pipelines_agent_ctl_install_dir }}/.env
-  when: azure_pipelines_agent_ctl_agent_env is defined
+  when: azure_pipelines_agent_ctl_job_base_env is defined
   template:
     src: .env.j2
     dest: '{{ azure_pipelines_agent_ctl_install_dir }}/.env'
