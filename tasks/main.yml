@@ -31,22 +31,22 @@
     mode: 0644
   tags: configure
 
-# - name: register agent
-#   command:
-#     chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
-#     cmd: '{{ azure_pipelines_agent_ctl_register_agent_cmd }}'
-#     creates: '{{ azure_pipelines_agent_ctl_install_dir }}/(.agent,.credentials)'
-#   environment: '{{ azure_pipelines_agent_ctl_shell_env }}'
-#   tags: configure
+- name: register agent
+  command:
+    chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
+    cmd: '{{ azure_pipelines_agent_ctl_register_agent_cmd }}'
+    creates: '{{ azure_pipelines_agent_ctl_install_dir }}/(.agent,.credentials)'
+  environment: '{{ azure_pipelines_agent_ctl_shell_env }}'
+  tags: configure
 
-# - name: initialize {{ azure_pipelines_agent_ctl_init_service_type }} service
-#   include_tasks: '{{ azure_pipelines_agent_ctl_init_service_type }}.yml'
-#   tags: service
+- name: initialize {{ azure_pipelines_agent_ctl_init_service_type }} service
+  include_tasks: '{{ azure_pipelines_agent_ctl_init_service_type }}.yml'
+  tags: service
 
-# - name: remove agent
-#   command:
-#     chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
-#     cmd: '{{ azure_pipelines_agent_ctl_remove_agent_cmd }}'
-#     removes: '{{ azure_pipelines_agent_ctl_install_dir }}/(.agent,.credentials)'
-#   environment: '{{ azure_pipelines_agent_ctl_shell_env }}'
-#   tags: unregister
+- name: remove agent
+  command:
+    chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
+    cmd: '{{ azure_pipelines_agent_ctl_remove_agent_cmd }}'
+    removes: '{{ azure_pipelines_agent_ctl_install_dir }}/(.agent,.credentials)'
+  environment: '{{ azure_pipelines_agent_ctl_shell_env }}'
+  tags: unregister
