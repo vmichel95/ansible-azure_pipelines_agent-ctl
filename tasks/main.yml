@@ -8,7 +8,7 @@
   tags: install-deps
 
 - name: configure web proxy
-  when: url in azure_pipelines_agent_ctl_proxy
+  when: azure_pipelines_agent_ctl_proxy.url is defined
   block:
     - name: write {{ azure_pipelines_agent_ctl_install_dir }}/.proxy
       template:
@@ -16,7 +16,7 @@
         dest: '{{ azure_pipelines_agent_ctl_install_dir }}/.proxy'
         mode: 0644
     - name: write {{ azure_pipelines_agent_ctl_install_dir }}/.proxybypass
-      when: bypass in azure_pipelines_agent_ctl_proxy
+      when: azure_pipelines_agent_ctl_proxy.bypass is defined
       template:
         src: .proxybypass.j2
         dest: '{{ azure_pipelines_agent_ctl_install_dir }}/.proxybypass'
