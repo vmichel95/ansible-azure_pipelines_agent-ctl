@@ -3,10 +3,10 @@ galaxy_info:
   author: Victor Michel
   description: Utility operations for managing Azure Pipelines Agent
   company: BlackRock Financial Management
-  license: 
+  license:
     - MIT
   min_ansible_version: 2.0
-  galaxy_tags: 
+  galaxy_tags:
     - development
   # MSFT Shell Driven SystemD Configuration: https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/v2-linux?view=azure-devops#run-as-a-systemd-service
   platforms:

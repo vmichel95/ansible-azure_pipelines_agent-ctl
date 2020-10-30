@@ -2,17 +2,45 @@
 # tasks file for azure_pipelines_agent-ctl
 - name: install dependencies
   when: azure_pipelines_agent_ctl_install_dependencies
-  shell:
+  command:
     chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
     cmd: '{{ azure_pipelines_agent_ctl_dependency_install_script }}'
-    executable: /bin/bash
   tags: install-deps
-  
+
+- name: configure web proxy
+  when: azure_pipelines_agent_ctl_proxy.url is defined
+  block:
+    - name: write {{ azure_pipelines_agent_ctl_install_dir }}/.proxy
+      template:
+        src: .proxy.j2
+        dest: '{{ azure_pipelines_agent_ctl_install_dir }}/.proxy'
+        mode: 0644
+    - name: write {{ azure_pipelines_agent_ctl_install_dir }}/.proxybypass
+      when: azure_pipelines_agent_ctl_proxy.bypass is defined
+      template:
+        src: .proxybypass.j2
+        dest: '{{ azure_pipelines_agent_ctl_install_dir }}/.proxybypass'
+        mode: 0644
+  tags: configure
+
+- name: write {{ azure_pipelines_agent_ctl_install_dir }}/.env
+  when: azure_pipelines_agent_ctl_job_base_env is defined
+  blockinfile:
+    create: yes
+    dest: '{{ azure_pipelines_agent_ctl_install_dir }}/.env'
+    mode: 0644
+    state: present
+    block: |
+      {%- for k, v in azure_pipelines_agent_ctl_job_base_env.items() -%}
+      {{ k }}={{ v }}
+      {% endfor -%}
+  tags: configure
+
 - name: register agent
-  shell:
+  command:
     chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
     cmd: '{{ azure_pipelines_agent_ctl_register_agent_cmd }}'
-    executable: /bin/bash
+    creates: '{{ azure_pipelines_agent_ctl_install_dir }}/(.agent,.credentials)'
   environment: '{{ azure_pipelines_agent_ctl_shell_env }}'
   tags: configure
 
@@ -21,9 +49,9 @@
   tags: service
 
 - name: remove agent
-  shell: 
+  command:
     chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
     cmd: '{{ azure_pipelines_agent_ctl_remove_agent_cmd }}'
-    executable: /bin/bash
+    removes: '{{ azure_pipelines_agent_ctl_install_dir }}/(.agent,.credentials)'
   environment: '{{ azure_pipelines_agent_ctl_shell_env }}'
   tags: unregister

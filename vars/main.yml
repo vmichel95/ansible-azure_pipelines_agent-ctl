@@ -1,10 +1,9 @@
 ---
 # vars file for azure_pipelines_agent-ctl
 azure_pipelines_agent_ctl_runas_root_env: '{{ ["AGENT_ALLOW_RUNASROOT", (azure_pipelines_agent_ctl_allow_root and "root" == azure_pipelines_agent_ctl_service_user) | bool | int] }}'
-azure_pipelines_agent_ctl_proxy_url_env: '{{ ["VSTS_HTTP_PROXY", azure_pipelines_agent_ctl_proxy["url"]]}}'
 azure_pipelines_agent_ctl_proxy_username_env: '{{ ["VSTS_HTTP_PROXY_USERNAME", azure_pipelines_agent_ctl_proxy["username"] | default("")] }}'
 azure_pipelines_agent_ctl_proxy_password_env: '{{ ["VSTS_HTTP_PROXY_PASSWORD", azure_pipelines_agent_ctl_proxy["password"] | default("")] }}'
-azure_pipelines_agent_ctl_proxy_env_vector: '{{ [azure_pipelines_agent_ctl_proxy_url_env, azure_pipelines_agent_ctl_proxy_username_env, azure_pipelines_agent_ctl_proxy_password_env] }}'
+azure_pipelines_agent_ctl_proxy_env_vector: '{{ [azure_pipelines_agent_ctl_proxy_username_env, azure_pipelines_agent_ctl_proxy_password_env] }}'
 azure_pipelines_agent_ctl_shell_env: '{{ dict([azure_pipelines_agent_ctl_runas_root_env] + azure_pipelines_agent_ctl_proxy_env_vector) | dict2items | rejectattr("value", "equalto", "") | list | items2dict }}'
 
 azure_pipelines_agent_ctl_base_flags: >-

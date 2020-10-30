@@ -1,37 +1,35 @@
 ---
-- name: refresh service environment 
-  shell:
+- name: refresh service environment
+  command:
     chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
     cmd: '{{ azure_pipelines_agent_ctl_env_script }}'
-    executable: /bin/bash
+    creates: '{{ azure_pipelines_agent_ctl_install_dir }}/(.env,.path)'
   environment: '{{ azure_pipelines_agent_ctl_shell_env }}'
   tags: configure
 
 - name: initialize systemd service
   become: yes
   become_user: '{{ azure_pipelines_agent_ctl_service_user }}'
-  shell:
+  command:
     chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
     cmd: '{{ azure_pipelines_agent_ctl_svc_install_cmd }}'
-    executable: /bin/bash
+    creates: '{{ azure_pipelines_agent_ctl_install_dir }}/(runsvc.sh,.service)'
   tags: configure
 
 - name: start systemd service
   become: yes
   become_user: '{{ azure_pipelines_agent_ctl_service_user }}'
-  shell:
+  command:
     chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
     cmd: '{{ azure_pipelines_agent_ctl_svc_start_cmd }}'
-    executable: /bin/bash
   tags: init
 
 - name: stop systemd service
   become: yes
   become_user: '{{ azure_pipelines_agent_ctl_service_user }}'
-  shell:
+  command:
     chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
     cmd: '{{ azure_pipelines_agent_ctl_svc_stop_cmd }}'
-    executable: /bin/bash
   tags:
     - shutdown
     - unregister
@@ -39,9 +37,9 @@
 - name: uninstall systemd service
   become: yes
   become_user: '{{ azure_pipelines_agent_ctl_service_user }}'
-  shell:
+  command:
     chdir: '{{ azure_pipelines_agent_ctl_install_dir }}'
     cmd: '{{ azure_pipelines_agent_ctl_svc_uninstall_cmd }}'
-    executable: /bin/bash
+    removes: '{{ azure_pipelines_agent_ctl_install_dir }}/(runsvc.sh,.service)'
   tags:
     - unregister
